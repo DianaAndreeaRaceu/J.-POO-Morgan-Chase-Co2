@@ -1,0 +1,208 @@
+[ {
+  "command" : "spendingsReport",
+  "output" : {
+    "balance" : 485.72529999999983,
+    "commerciants" : [ {
+      "commerciant" : "Apple",
+      "total" : 114.0
+    }, {
+      "commerciant" : "H&M",
+      "total" : 2348.35
+    } ],
+    "currency" : "USD",
+    "IBAN" : "RO58POOB7344468893732422",
+    "transactions" : [ {
+      "amount" : 487.0,
+      "commerciant" : "H&M",
+      "description" : "Card payment",
+      "timestamp" : 4
+    }, {
+      "amount" : 114.0,
+      "commerciant" : "Apple",
+      "description" : "Card payment",
+      "timestamp" : 5
+    }, {
+      "amount" : 531.25,
+      "commerciant" : "H&M",
+      "description" : "Card payment",
+      "timestamp" : 7
+    }, {
+      "amount" : 319.0,
+      "commerciant" : "H&M",
+      "description" : "Card payment",
+      "timestamp" : 12
+    }, {
+      "amount" : 1011.1,
+      "commerciant" : "H&M",
+      "description" : "Card payment",
+      "timestamp" : 34
+    } ]
+  },
+  "timestamp" : 42
+}, {
+  "command" : "printUsers",
+  "output" : [ {
+    "firstName" : "Tiffany",
+    "lastName" : "Leonard",
+    "email" : "Tiffany_Leonard@hotmail.us",
+    "accounts" : [ {
+      "IBAN" : "RO58POOB7344468893732422",
+      "balance" : 527.3919666666665,
+      "currency" : "USD",
+      "type" : "classic",
+      "cards" : [ {
+        "cardNumber" : "8207906978464446",
+        "status" : "active"
+      } ]
+    } ]
+  }, {
+    "firstName" : "Robert",
+    "lastName" : "Yu",
+    "email" : "Robert_Yu@gmail.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Patrick",
+    "lastName" : "Robinson",
+    "email" : "Patrick_Robinson@outlook.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Debra",
+    "lastName" : "Buchanan",
+    "email" : "Debra_Buchanan@outlook.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Iulian",
+    "lastName" : "Dumitrescu",
+    "email" : "Iulian_Dumitrescu@gmail.ro",
+    "accounts" : [ ]
+  } ],
+  "timestamp" : 46
+}, {
+  "command" : "spendingsReport",
+  "output" : {
+    "balance" : 527.3919666666665,
+    "commerciants" : [ {
+      "commerciant" : "Apple",
+      "total" : 114.0
+    }, {
+      "commerciant" : "H&M",
+      "total" : 2348.35
+    } ],
+    "currency" : "USD",
+    "IBAN" : "RO58POOB7344468893732422",
+    "transactions" : [ {
+      "amount" : 487.0,
+      "commerciant" : "H&M",
+      "description" : "Card payment",
+      "timestamp" : 4
+    }, {
+      "amount" : 114.0,
+      "commerciant" : "Apple",
+      "description" : "Card payment",
+      "timestamp" : 5
+    }, {
+      "amount" : 531.25,
+      "commerciant" : "H&M",
+      "description" : "Card payment",
+      "timestamp" : 7
+    }, {
+      "amount" : 319.0,
+      "commerciant" : "H&M",
+      "description" : "Card payment",
+      "timestamp" : 12
+    }, {
+      "amount" : 1011.1,
+      "commerciant" : "H&M",
+      "description" : "Card payment",
+      "timestamp" : 34
+    } ]
+  },
+  "timestamp" : 47
+}, {
+  "command" : "deleteAccount",
+  "output" : {
+    "error" : "Account couldn't be deleted - see org.poo.transactions for details",
+    "timestamp" : 48
+  },
+  "timestamp" : 48
+}, {
+  "command" : "payOnline",
+  "output" : {
+    "description" : "Card not found",
+    "timestamp" : 52
+  },
+  "timestamp" : 52
+}, {
+  "command" : "payOnline",
+  "output" : {
+    "description" : "Card not found",
+    "timestamp" : 57
+  },
+  "timestamp" : 57
+}, {
+  "command" : "payOnline",
+  "output" : {
+    "description" : "Card not found",
+    "timestamp" : 66
+  },
+  "timestamp" : 66
+}, {
+  "command" : "payOnline",
+  "output" : {
+    "description" : "Card not found",
+    "timestamp" : 68
+  },
+  "timestamp" : 68
+}, {
+  "command" : "payOnline",
+  "output" : {
+    "description" : "Card not found",
+    "timestamp" : 79
+  },
+  "timestamp" : 79
+}, {
+  "command" : "payOnline",
+  "output" : {
+    "description" : "Card not found",
+    "timestamp" : 88
+  },
+  "timestamp" : 88
+}, {
+  "command" : "payOnline",
+  "output" : {
+    "description" : "Card not found",
+    "timestamp" : 92
+  },
+  "timestamp" : 92
+}, {
+  "command" : "payOnline",
+  "output" : {
+    "description" : "Card not found",
+    "timestamp" : 99
+  },
+  "timestamp" : 99
+}, {
+  "command" : "payOnline",
+  "output" : {
+    "description" : "Card not found",
+    "timestamp" : 108
+  },
+  "timestamp" : 108
+}, {
+  "command" : "payOnline",
+  "output" : {
+    "description" : "Card not found",
+    "timestamp" : 111
+  },
+  "timestamp" : 111
+}, {
+  "command" : "spendingsReport",
+  "output" : {
+    "balance" : 265.66666666666663,
+    "commerciants" : [ ],
+    "currency" : "USD",
+    "IBAN" : "RO69POOB6209498372540635",
+    "transactions" : [ ]
+  },
+  "timestamp" : 117
+} ]
