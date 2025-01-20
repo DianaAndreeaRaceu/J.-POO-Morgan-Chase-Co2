@@ -164,7 +164,6 @@ public final class Transactions {
                     if (Objects.equals(account.getIban(), "RO53POOB7122855990652257")) {
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!S-a adaugat "
                                 + amount);
-                        System.out.println("SOLDUL DEVINE " + account.getBalance());
                     }
                     if (employeePosition != -1) {
                         double amountToAdd =
