@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.fileio.CommerciantInput;
-import org.poo.fileio.ObjectInput;
 import org.poo.transaction.CardTransaction;
 import org.poo.transaction.Transaction;
 
@@ -112,28 +111,54 @@ public final class Utils {
         return commerciantsArray;
     }
 
-    public static CommerciantInput getCommerciantByAccount(String iban, CommerciantInput[] commerciants) {
+    /**
+     * Retrieves a commerciant based on the given IBAN.
+     *
+     * @param iban          The IBAN of the commerciant's account.
+     * @param commerciants  An array of commerciants to search.
+     * @return The {@link CommerciantInput} object matching the IBAN,
+     * or {@code null} if no match is found.
+     */
+    public static CommerciantInput getCommerciantByAccount(final String iban,
+                                                           final CommerciantInput[] commerciants) {
         for (CommerciantInput commerciant : commerciants) {
-            if(Objects.equals(commerciant.getAccount(), iban)) {
+            if (Objects.equals(commerciant.getAccount(), iban)) {
                 return commerciant;
             }
         }
         return null;
     }
 
-    public static CommerciantInput getCommerciantByName(String name, CommerciantInput[] commerciants) {
+    /**
+     * Retrieves a commerciant based on the given name.
+     *
+     * @param name          The name of the commerciant.
+     * @param commerciants  An array of commerciants to search.
+     * @return The {@link CommerciantInput} object matching the name,
+     * or {@code null} if no match is found.
+     */
+    public static CommerciantInput getCommerciantByName(final String name,
+                                                        final CommerciantInput[] commerciants) {
         for (CommerciantInput commerciant : commerciants) {
-            if(Objects.equals(commerciant.getCommerciant(), name)) {
+            if (Objects.equals(commerciant.getCommerciant(), name)) {
                 return commerciant;
             }
         }
         return null;
     }
 
-    public static int getPositionForCommerciant(String name, CommerciantInput[] commerciants) {
+    /**
+     * Finds the position of a commerciant in the array based on its name.
+     *
+     * @param name          The name of the commerciant.
+     * @param commerciants  An array of commerciants to search.
+     * @return The position of the commerciant in the array, or {@code -1} if not found.
+     */
+    public static int getPositionForCommerciant(final String name,
+                                                final CommerciantInput[] commerciants) {
         int position = 0;
         for (CommerciantInput commerciant : commerciants) {
-            if(Objects.equals(commerciant.getCommerciant(), name)) {
+            if (Objects.equals(commerciant.getCommerciant(), name)) {
                 return position;
             }
             position++;
@@ -141,13 +166,4 @@ public final class Utils {
         return -1;
     }
 
-    public static CommerciantInput getCommerciantByIban(
-            String iban, CommerciantInput[] commerciants) {
-        for (CommerciantInput commerciant : commerciants) {
-            if(Objects.equals(commerciant.getAccount(), iban)) {
-                return commerciant;
-            }
-        }
-        return null;
-    }
 }

@@ -3,8 +3,7 @@ package org.poo.card;
 import org.poo.account.Account;
 import org.poo.account.Bussines;
 import org.poo.account.User;
-import org.poo.bussines.Bank;
-import org.poo.bussines.Converter;
+import org.poo.business.Converter;
 import org.poo.fileio.CommandInput;
 import org.poo.transaction.CardTransaction;
 
@@ -16,13 +15,21 @@ public abstract class Card {
     private boolean frozen;
     private boolean warning;
     private boolean isUsed;
+    private static final int CASHBACK_TWO = 2;
+    private static final int CASHBACK_FIVE = 5;
+    private static final int CASHBACK_TEN = 10;
+    private static final int TOTAL_PERCENT = 100;
+    private static final int LIMIT_FOR_COMISSION = 500;
+    private static final int AMOUNT_FOR_GOLD = 300;
+    private static final double COMISSION_ONE = 0.1;
+    private static final double COMISSION_TWO = 0.2;
+    private static final int MIN_FEE = 5;
 
     public Card(final String cardNumber) {
         this.cardNumber = cardNumber;
         this.active = true;
         this.frozen = false;
         this.warning = false;
-        this.isUsed = false;
     }
 
     public final String getCardNumber() {
@@ -53,13 +60,15 @@ public abstract class Card {
         this.warning = warning;
     }
 
+    /**
+     * Checks if the card has been used for any transactions.
+     *
+     * @return {@code true} if the card has been used, {@code false} otherwise.
+     */
     public boolean isUsed() {
         return isUsed;
     }
 
-    public void setUsed(boolean used) {
-        isUsed = used;
-    }
 
     /**
      * Retrieves the current status of the card.
@@ -79,68 +88,121 @@ public abstract class Card {
         }
     }
 
-    public void pay(User user, final double convertedAmount,
+    /**
+     * Handles the logic for making a payment using the card.
+     *
+     * @param user             The user making the payment.
+     * @param convertedAmount  The amount to be paid, converted to the account's currency.
+     * @param account          The account associated with the card.
+     * @param command          The command input containing details of the payment.
+     * @param email            The email of the user making the payment.
+     * @param currency         The currency in which the payment is made.
+     * @param currencyConverter The converter to handle currency conversion.
+     * @return 1 if the user's service plan is upgraded to "gold", 0 otherwise.
+     */
+    public int pay(final User user, final double convertedAmount,
                     final Account account, final CommandInput command,
                     final String email, final String currency,
                     final Converter currencyConverter) {
+        System.out.println("DIN SUMA " + account.getBalance());
 
         double amountInRon = currencyConverter.convert(currency,
                 "RON", convertedAmount);
 
-        if(Objects.equals(account.getAccountType(), "business")) {
-            user = ((Bussines)account).getOwner();
+        User userFinal = user;
+        if (Objects.equals(account.getAccountType(), "business")) {
+            userFinal = ((Bussines) account).getOwner();
         }
 
-        if(Objects.equals(user.getServicePlan(), "standard")) {
-            if(convertedAmount + (convertedAmount * 0.2)/100 > account.getBalance()) {
+        if (Objects.equals(userFinal.getServicePlan(), "standard")) {
+            if (convertedAmount
+                    + (convertedAmount * COMISSION_TWO) / TOTAL_PERCENT > account.getBalance()) {
                 command.setDescription("Insufficient funds");
                 account.addTransaction(new CardTransaction(
                         command.getTimestamp(), "Insufficient funds",
                         -1, null, getCardNumber(), email, account.getIban()));
-                return;
+                return 0;
             }
-            account.setBalance(account.getBalance() - (convertedAmount + (convertedAmount * 0.2)/100));
-        } else if(Objects.equals(user.getServicePlan(), "silver") && amountInRon >= 500) {
-            if(convertedAmount + (convertedAmount * 0.1)/100 > account.getBalance()) {
+            account.setBalance(account.getBalance() - (convertedAmount
+                    + (convertedAmount * COMISSION_TWO) / TOTAL_PERCENT));
+            System.out.println("S-a platit " + (convertedAmount
+                    + (convertedAmount * COMISSION_TWO) / TOTAL_PERCENT)
+                    + " si au ramas " + account.getBalance() + "COM 2");
+        } else if (Objects.equals(userFinal.getServicePlan(), "silver")
+                && amountInRon >= LIMIT_FOR_COMISSION) {
+            if (convertedAmount
+                    + (convertedAmount * COMISSION_ONE) / TOTAL_PERCENT > account.getBalance()) {
                 command.setDescription("Insufficient funds");
                 account.addTransaction(new CardTransaction(
                         command.getTimestamp(), "Insufficient funds",
                         -1, null, getCardNumber(), email, account.getIban()));
-                return;
+                return 0;
             }
-            account.setBalance(account.getBalance() - (convertedAmount + (convertedAmount * 0.1)/100));
-            user.setFee(user.getFee() + 1);
-            if(user.getFee() == 5) {
-                user.setServicePlan("gold");
+            account.setBalance(account.getBalance() - (convertedAmount
+                    + (convertedAmount * COMISSION_ONE) / TOTAL_PERCENT));
+            userFinal.setFee(userFinal.getFee() + 1);
+            if (userFinal.getFee() == MIN_FEE
+                    && !Objects.equals(userFinal.getServicePlan(), "gold")) {
+                userFinal.setServicePlan("gold");
+                return 1;
             }
 
         } else {
             account.setBalance(account.getBalance() - convertedAmount);
+            if (amountInRon >= AMOUNT_FOR_GOLD) {
+                userFinal.setFee(userFinal.getFee() + 1);
+                if (userFinal.getFee() == MIN_FEE
+                        && !Objects.equals(userFinal.getServicePlan(), "gold")) {
+                    userFinal.setServicePlan("gold");
+                    return 1;
+                }
+            }
         }
+        return 0;
     }
 
 
+    /**
+     * Handles the logic for cash withdrawal using the card.
+     *
+     * @param user          The user withdrawing cash.
+     * @param amount        The amount to be withdrawn.
+     * @param amountInRon   The equivalent amount in RON.
+     * @param account       The account from which cash is withdrawn.
+     * @param command       The command input containing details of the withdrawal.
+     */
     public void cashWithdrawal(final User user, final double amount, final double amountInRon,
                     final Account account, final CommandInput command) {
 
-        if(user.getServicePlan().equals("standard")) {
-            if(account.getBalance() - (amount + (amount * 0.2)/100) < 0) {
+        if (user.getServicePlan().equals("standard")) {
+            if (account.getBalance() - (amount
+                    + (amount * COMISSION_TWO) / TOTAL_PERCENT) < 0) {
+                account.addTransaction(new CardTransaction(command.getTimestamp(),
+                        "Insufficient funds", -1, null,
+                        null, null, null));
                 return;
             }
-            account.setBalance(account.getBalance() - (amount + (amount * 0.2)/100));
-        } else if(user.getServicePlan().equals("silver") && amountInRon >= 500) {
-            if(account.getBalance() - (amount + (amount * 0.1)/100) < 0) {
+            account.setBalance(account.getBalance() - (amount
+                    + (amount * COMISSION_TWO) / TOTAL_PERCENT));
+        } else if (user.getServicePlan().equals("silver")
+                && amountInRon >= LIMIT_FOR_COMISSION) {
+            if (account.getBalance() - (amount
+                    + (amount * COMISSION_ONE) / TOTAL_PERCENT) < 0) {
+                account.addTransaction(new CardTransaction(command.getTimestamp(),
+                        "Insufficient funds", -1, null,
+                        null, null, null));
                 return;
             }
-            account.setBalance(account.getBalance() - (amount+ (amount * 0.1)/100));
+            account.setBalance(account.getBalance() - (amount
+                    + (amount * COMISSION_ONE) / TOTAL_PERCENT));
             user.setFee(user.getFee() + 1);
-            if(user.getFee() == 5) {
+            if (user.getFee() == MIN_FEE) {
                 user.setServicePlan("gold");
             }
         } else {
-            if(amountInRon >= 300) {
+            if (amountInRon >= AMOUNT_FOR_GOLD) {
                 user.setFee(user.getFee() + 1);
-                if(user.getFee() == 5) {
+                if (user.getFee() == MIN_FEE) {
                     user.setServicePlan("gold");
                 }
             }
@@ -150,7 +212,6 @@ public abstract class Card {
         account.addTransaction(new CardTransaction(
                 command.getTimestamp(), "Cash withdrawal of " + amountInRon,
                 amountInRon, null, null, null, null));
-        System.out.println("S-au retras " + amount + " si au ramas " + account.getBalance());
     }
 
     /**
@@ -163,6 +224,6 @@ public abstract class Card {
      */
     public abstract int payOnline(Account account, CommandInput command,
                                    String email, double convertedAmount,
-                                   final String currency, final User user,
-                                   final Converter currencyConverter);
+                                   String currency, User user,
+                                   Converter currencyConverter);
 }

@@ -2466,7 +2466,7 @@
     "email" : "Jennifer_Gould@mail.com.ca",
     "accounts" : [ {
       "IBAN" : "RO58POOB7344468893732422",
-      "balance" : 3297.3928285714283,
+      "balance" : 3290.512828571428,
       "currency" : "CAD",
       "type" : "classic",
       "cards" : [ {
@@ -3024,7 +3024,7 @@
 }, {
   "command" : "spendingsReport",
   "output" : {
-    "balance" : 3297.3928285714283,
+    "balance" : 3290.512828571428,
     "commerciants" : [ {
       "commerciant" : "Apple",
       "total" : 0.018571428571428572

@@ -1,441 +1,377 @@
 [ {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO98POOB8412955460158769",
-    "balance" : 119.0,
-    "currency" : "USD",
-    "spending limit" : 280.0,
-    "deposit limit" : 107.14285714285714,
-    "managers" : [ ],
-    "employees" : [ {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Lee Joe"
+  "command" : "printUsers",
+  "output" : [ {
+    "firstName" : "Carla",
+    "lastName" : "Dobre",
+    "email" : "Carla_Dobre@yahoo.ro",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Leslie",
+    "lastName" : "Turner",
+    "email" : "Leslie_Turner@outlook.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Niculina",
+    "lastName" : "Popa",
+    "email" : "Niculina_Popa@outlook.ro",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Tami",
+    "lastName" : "Hughes",
+    "email" : "Tami_Hughes@hotmail.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Jessica",
+    "lastName" : "Chandler",
+    "email" : "Jessica_Chandler@hotmail.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Simone-Christiane",
+    "lastName" : "Poulain",
+    "email" : "Simone-Christiane_Poulain@gmail.fr",
+    "accounts" : [ ]
+  } ],
+  "timestamp" : 1
+}, {
+  "command" : "printUsers",
+  "output" : [ {
+    "firstName" : "Carla",
+    "lastName" : "Dobre",
+    "email" : "Carla_Dobre@yahoo.ro",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Leslie",
+    "lastName" : "Turner",
+    "email" : "Leslie_Turner@outlook.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Niculina",
+    "lastName" : "Popa",
+    "email" : "Niculina_Popa@outlook.ro",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Tami",
+    "lastName" : "Hughes",
+    "email" : "Tami_Hughes@hotmail.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Jessica",
+    "lastName" : "Chandler",
+    "email" : "Jessica_Chandler@hotmail.us",
+    "accounts" : [ {
+      "IBAN" : "RO58POOB7344468893732422",
+      "balance" : 0.0,
+      "currency" : "USD",
+      "type" : "classic",
+      "cards" : [ ]
+    } ]
+  }, {
+    "firstName" : "Simone-Christiane",
+    "lastName" : "Poulain",
+    "email" : "Simone-Christiane_Poulain@gmail.fr",
+    "accounts" : [ ]
+  } ],
+  "timestamp" : 3
+}, {
+  "command" : "printUsers",
+  "output" : [ {
+    "firstName" : "Carla",
+    "lastName" : "Dobre",
+    "email" : "Carla_Dobre@yahoo.ro",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Leslie",
+    "lastName" : "Turner",
+    "email" : "Leslie_Turner@outlook.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Niculina",
+    "lastName" : "Popa",
+    "email" : "Niculina_Popa@outlook.ro",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Tami",
+    "lastName" : "Hughes",
+    "email" : "Tami_Hughes@hotmail.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Jessica",
+    "lastName" : "Chandler",
+    "email" : "Jessica_Chandler@hotmail.us",
+    "accounts" : [ {
+      "IBAN" : "RO58POOB7344468893732422",
+      "balance" : 0.0,
+      "currency" : "USD",
+      "type" : "classic",
+      "cards" : [ ]
     }, {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Albu Dida"
+      "IBAN" : "RO69POOB6209498372540635",
+      "balance" : 734.0,
+      "currency" : "USD",
+      "type" : "savings",
+      "cards" : [ ]
+    } ]
+  }, {
+    "firstName" : "Simone-Christiane",
+    "lastName" : "Poulain",
+    "email" : "Simone-Christiane_Poulain@gmail.fr",
+    "accounts" : [ ]
+  } ],
+  "timestamp" : 7
+}, null, null, {
+  "command" : "printTransactions",
+  "timestamp" : 21,
+  "output" : [ {
+    "description" : "New account created",
+    "timestamp" : 2
+  }, {
+    "description" : "New account created",
+    "timestamp" : 4
+  }, {
+    "description" : "You don't have the minimum age required.",
+    "timestamp" : 6
+  }, {
+    "senderIBAN" : "RO69POOB6209498372540635",
+    "receiverIBAN" : "RO90POOB5450777208072365",
+    "amount" : "666.0 USD",
+    "transferType" : "sent",
+    "description" : "Visit to a local healthcare clinic",
+    "timestamp" : 9
+  }, {
+    "account" : "RO58POOB7344468893732422",
+    "card" : "8207906978464446",
+    "cardHolder" : "Jessica_Chandler@hotmail.us",
+    "description" : "New card created",
+    "timestamp" : 12
+  }, {
+    "amount" : 44.14285714285714,
+    "commerciant" : "Apple",
+    "description" : "Card payment",
+    "timestamp" : 13
+  }, {
+    "account" : "RO69POOB6209498372540635",
+    "card" : "7901879264253296",
+    "cardHolder" : "Jessica_Chandler@hotmail.us",
+    "description" : "New card created",
+    "timestamp" : 15
+  }, {
+    "description" : "Insufficient funds",
+    "timestamp" : 18
+  }, {
+    "amount" : 481.0,
+    "commerciant" : "Nike",
+    "description" : "Card payment",
+    "timestamp" : 20
+  } ]
+}, {
+  "command" : "printUsers",
+  "output" : [ {
+    "firstName" : "Carla",
+    "lastName" : "Dobre",
+    "email" : "Carla_Dobre@yahoo.ro",
+    "accounts" : [ {
+      "IBAN" : "RO76POOB4035116042454483",
+      "balance" : 0.0,
+      "currency" : "RON",
+      "type" : "classic",
+      "cards" : [ ]
+    } ]
+  }, {
+    "firstName" : "Leslie",
+    "lastName" : "Turner",
+    "email" : "Leslie_Turner@outlook.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Niculina",
+    "lastName" : "Popa",
+    "email" : "Niculina_Popa@outlook.ro",
+    "accounts" : [ {
+      "IBAN" : "RO90POOB5450777208072365",
+      "balance" : 3108.0,
+      "currency" : "RON",
+      "type" : "classic",
+      "cards" : [ ]
+    } ]
+  }, {
+    "firstName" : "Tami",
+    "lastName" : "Hughes",
+    "email" : "Tami_Hughes@hotmail.us",
+    "accounts" : [ {
+      "IBAN" : "RO65POOB8944016386845896",
+      "balance" : 0.0,
+      "currency" : "USD",
+      "type" : "classic",
+      "cards" : [ ]
     }, {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Marin Silvia"
-    } ],
-    "total spent" : 0.0,
-    "total deposited" : 0.0,
-    "statistics type" : "transaction"
-  },
-  "timestamp" : 262
-}, {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO32POOB0130532963818359",
-    "balance" : 39.0,
-    "currency" : "USD",
-    "spending limit" : 896.0,
-    "deposit limit" : 107.14285714285714,
-    "managers" : [ ],
-    "employees" : [ ],
-    "total spent" : 0.0,
-    "total deposited" : 0.0,
-    "statistics type" : "transaction"
-  },
-  "timestamp" : 263
-}, {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO68POOB1848616931405475",
-    "balance" : 749.0,
-    "currency" : "RON",
-    "spending limit" : 473.0,
-    "deposit limit" : 500.0,
-    "managers" : [ ],
-    "employees" : [ ],
-    "total spent" : 0.0,
-    "total deposited" : 0.0,
-    "statistics type" : "transaction"
-  },
-  "timestamp" : 264
-}, {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO10POOB4354933866366881",
-    "balance" : 741.0,
-    "currency" : "RON",
-    "spending limit" : 500.0,
-    "deposit limit" : 500.0,
-    "managers" : [ ],
-    "employees" : [ ],
-    "total spent" : 0.0,
-    "total deposited" : 0.0,
-    "statistics type" : "transaction"
-  },
-  "timestamp" : 265
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 297
-  },
-  "timestamp" : 297
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 304
-  },
-  "timestamp" : 304
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 307
-  },
-  "timestamp" : 307
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 313
-  },
-  "timestamp" : 313
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 319
-  },
-  "timestamp" : 319
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 325
-  },
-  "timestamp" : 325
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 330
-  },
-  "timestamp" : 330
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 334
-  },
-  "timestamp" : 334
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 342
-  },
-  "timestamp" : 342
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 349
-  },
-  "timestamp" : 349
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 355
-  },
-  "timestamp" : 355
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 359
-  },
-  "timestamp" : 359
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 365
-  },
-  "timestamp" : 365
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 369
-  },
-  "timestamp" : 369
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 372
-  },
-  "timestamp" : 372
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 380
-  },
-  "timestamp" : 380
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 389
-  },
-  "timestamp" : 389
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 394
-  },
-  "timestamp" : 394
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 400
-  },
-  "timestamp" : 400
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 408
-  },
-  "timestamp" : 408
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 415
-  },
-  "timestamp" : 415
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 418
-  },
-  "timestamp" : 418
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 422
-  },
-  "timestamp" : 422
-}, {
-  "command" : "payOnline",
-  "output" : {
-    "description" : "Card not found",
-    "timestamp" : 425
-  },
-  "timestamp" : 425
-}, {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO98POOB8412955460158769",
-    "balance" : 554.0,
-    "currency" : "USD",
-    "spending limit" : 868.0,
-    "deposit limit" : 107.14285714285714,
-    "managers" : [ {
-      "spent" : 0.0,
-      "deposited" : 145.0,
-      "username" : "Mocanu Mirela"
+      "IBAN" : "RO58POOB2721178218599590",
+      "balance" : 0.0,
+      "currency" : "USD",
+      "type" : "classic",
+      "cards" : [ ]
+    } ]
+  }, {
+    "firstName" : "Jessica",
+    "lastName" : "Chandler",
+    "email" : "Jessica_Chandler@hotmail.us",
+    "accounts" : [ {
+      "IBAN" : "RO58POOB7344468893732422",
+      "balance" : 328.90128571428573,
+      "currency" : "USD",
+      "type" : "classic",
+      "cards" : [ {
+        "cardNumber" : "8207906978464446",
+        "status" : "active"
+      } ]
     }, {
-      "spent" : 0.0,
-      "deposited" : 144.0,
-      "username" : "Ellis DDS Alexander"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 146.0,
-      "username" : "Vallee Genevieve"
-    } ],
-    "employees" : [ {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Lee Joe"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Albu Dida"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Marin Silvia"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Poulain Gilbert"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Booker James"
-    } ],
-    "total spent" : 0.0,
-    "total deposited" : 435.0,
-    "statistics type" : "transaction"
-  },
-  "timestamp" : 429
+      "IBAN" : "RO69POOB6209498372540635",
+      "balance" : 157.0,
+      "currency" : "USD",
+      "type" : "savings",
+      "cards" : [ {
+        "cardNumber" : "7901879264253296",
+        "status" : "active"
+      } ]
+    } ]
+  }, {
+    "firstName" : "Simone-Christiane",
+    "lastName" : "Poulain",
+    "email" : "Simone-Christiane_Poulain@gmail.fr",
+    "accounts" : [ ]
+  } ],
+  "timestamp" : 22
 }, {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO32POOB0130532963818359",
-    "balance" : 723.0,
-    "currency" : "USD",
-    "spending limit" : 94.0,
-    "deposit limit" : 107.14285714285714,
-    "managers" : [ {
-      "spent" : 0.0,
-      "deposited" : 200.0,
-      "username" : "Mocanu Mirela"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 165.0,
-      "username" : "Poulain Gilbert"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 167.0,
-      "username" : "Booker James"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 152.0,
-      "username" : "Ellis DDS Alexander"
-    } ],
-    "employees" : [ {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Vallee Genevieve"
-    } ],
-    "total spent" : 0.0,
-    "total deposited" : 684.0,
-    "statistics type" : "transaction"
-  },
-  "timestamp" : 430
+  "command" : "printTransactions",
+  "timestamp" : 24,
+  "output" : [ {
+    "description" : "New account created",
+    "timestamp" : 2
+  }, {
+    "description" : "New account created",
+    "timestamp" : 4
+  }, {
+    "description" : "You don't have the minimum age required.",
+    "timestamp" : 6
+  }, {
+    "senderIBAN" : "RO69POOB6209498372540635",
+    "receiverIBAN" : "RO90POOB5450777208072365",
+    "amount" : "666.0 USD",
+    "transferType" : "sent",
+    "description" : "Visit to a local healthcare clinic",
+    "timestamp" : 9
+  }, {
+    "account" : "RO58POOB7344468893732422",
+    "card" : "8207906978464446",
+    "cardHolder" : "Jessica_Chandler@hotmail.us",
+    "description" : "New card created",
+    "timestamp" : 12
+  }, {
+    "amount" : 44.14285714285714,
+    "commerciant" : "Apple",
+    "description" : "Card payment",
+    "timestamp" : 13
+  }, {
+    "account" : "RO69POOB6209498372540635",
+    "card" : "7901879264253296",
+    "cardHolder" : "Jessica_Chandler@hotmail.us",
+    "description" : "New card created",
+    "timestamp" : 15
+  }, {
+    "description" : "Insufficient funds",
+    "timestamp" : 18
+  }, {
+    "amount" : 481.0,
+    "commerciant" : "Nike",
+    "description" : "Card payment",
+    "timestamp" : 20
+  }, {
+    "senderIBAN" : "RO58POOB7344468893732422",
+    "receiverIBAN" : "RO90POOB5450777208072365",
+    "amount" : "167.0 USD",
+    "transferType" : "sent",
+    "description" : "Black Friday shopping spree",
+    "timestamp" : 23
+  } ]
 }, {
-  "command" : "businessReport",
+  "command" : "deleteAccount",
   "output" : {
-    "IBAN" : "RO68POOB1848616931405475",
-    "balance" : 859.0,
-    "currency" : "RON",
-    "spending limit" : 473.0,
-    "deposit limit" : 500.0,
-    "managers" : [ {
-      "spent" : 0.0,
-      "deposited" : 110.0,
-      "username" : "Mocanu Mirela"
-    } ],
-    "employees" : [ {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Poulain Gilbert"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Booker James"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Ellis DDS Alexander"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Vallee Genevieve"
-    } ],
-    "total spent" : 0.0,
-    "total deposited" : 110.0,
-    "statistics type" : "transaction"
+    "error" : "Account couldn't be deleted - see org.poo.transactions for details",
+    "timestamp" : 25
   },
-  "timestamp" : 431
+  "timestamp" : 25
 }, {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO10POOB4354933866366881",
-    "balance" : 1117.0,
-    "currency" : "RON",
-    "spending limit" : 500.0,
-    "deposit limit" : 500.0,
-    "managers" : [ {
-      "spent" : 0.0,
-      "deposited" : 116.0,
-      "username" : "Mocanu Mirela"
+  "command" : "printUsers",
+  "output" : [ {
+    "firstName" : "Carla",
+    "lastName" : "Dobre",
+    "email" : "Carla_Dobre@yahoo.ro",
+    "accounts" : [ {
+      "IBAN" : "RO76POOB4035116042454483",
+      "balance" : 0.0,
+      "currency" : "RON",
+      "type" : "classic",
+      "cards" : [ ]
+    } ]
+  }, {
+    "firstName" : "Leslie",
+    "lastName" : "Turner",
+    "email" : "Leslie_Turner@outlook.us",
+    "accounts" : [ ]
+  }, {
+    "firstName" : "Niculina",
+    "lastName" : "Popa",
+    "email" : "Niculina_Popa@outlook.ro",
+    "accounts" : [ {
+      "IBAN" : "RO90POOB5450777208072365",
+      "balance" : 3887.333333333333,
+      "currency" : "RON",
+      "type" : "classic",
+      "cards" : [ ]
+    } ]
+  }, {
+    "firstName" : "Tami",
+    "lastName" : "Hughes",
+    "email" : "Tami_Hughes@hotmail.us",
+    "accounts" : [ {
+      "IBAN" : "RO65POOB8944016386845896",
+      "balance" : 0.0,
+      "currency" : "USD",
+      "type" : "classic",
+      "cards" : [ ]
     }, {
-      "spent" : 0.0,
-      "deposited" : 124.0,
-      "username" : "Poulain Gilbert"
+      "IBAN" : "RO58POOB2721178218599590",
+      "balance" : 0.0,
+      "currency" : "USD",
+      "type" : "classic",
+      "cards" : [ ]
+    } ]
+  }, {
+    "firstName" : "Jessica",
+    "lastName" : "Chandler",
+    "email" : "Jessica_Chandler@hotmail.us",
+    "accounts" : [ {
+      "IBAN" : "RO58POOB7344468893732422",
+      "balance" : 161.90128571428573,
+      "currency" : "USD",
+      "type" : "classic",
+      "cards" : [ {
+        "cardNumber" : "8207906978464446",
+        "status" : "active"
+      } ]
     }, {
-      "spent" : 0.0,
-      "deposited" : 136.0,
-      "username" : "Ellis DDS Alexander"
-    } ],
-    "employees" : [ {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Booker James"
-    }, {
-      "spent" : 0.0,
-      "deposited" : 0.0,
-      "username" : "Vallee Genevieve"
-    } ],
-    "total spent" : 0.0,
-    "total deposited" : 376.0,
-    "statistics type" : "transaction"
-  },
-  "timestamp" : 432
-}, {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO98POOB8412955460158769",
-    "balance" : 582.27,
-    "currency" : "USD",
-    "spending limit" : 868.0,
-    "statistics type" : "commerciant",
-    "deposit limit" : 107.14285714285714,
-    "commerciants" : [ ]
-  },
-  "timestamp" : 435
-}, {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO32POOB0130532963818359",
-    "balance" : 723.0,
-    "currency" : "USD",
-    "spending limit" : 94.0,
-    "statistics type" : "commerciant",
-    "deposit limit" : 107.14285714285714,
-    "commerciants" : [ ]
-  },
-  "timestamp" : 436
-}, {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO68POOB1848616931405475",
-    "balance" : 859.0,
-    "currency" : "RON",
-    "spending limit" : 473.0,
-    "statistics type" : "commerciant",
-    "deposit limit" : 500.0,
-    "commerciants" : [ ]
-  },
-  "timestamp" : 437
-}, {
-  "command" : "businessReport",
-  "output" : {
-    "IBAN" : "RO10POOB4354933866366881",
-    "balance" : 1117.0,
-    "currency" : "RON",
-    "spending limit" : 500.0,
-    "statistics type" : "commerciant",
-    "deposit limit" : 500.0,
-    "commerciants" : [ ]
-  },
-  "timestamp" : 438
+      "IBAN" : "RO69POOB6209498372540635",
+      "balance" : 157.0,
+      "currency" : "USD",
+      "type" : "savings",
+      "cards" : [ {
+        "cardNumber" : "7901879264253296",
+        "status" : "active"
+      } ]
+    } ]
+  }, {
+    "firstName" : "Simone-Christiane",
+    "lastName" : "Poulain",
+    "email" : "Simone-Christiane_Poulain@gmail.fr",
+    "accounts" : [ ]
+  } ],
+  "timestamp" : 26
 } ]

@@ -3,13 +3,14 @@ package org.poo.card;
 import org.poo.account.Account;
 import org.poo.account.Bussines;
 import org.poo.account.User;
-import org.poo.bussines.Converter;
+import org.poo.business.Converter;
 import org.poo.fileio.CommandInput;
+import org.poo.transaction.AccountTransaction;
 import org.poo.transaction.CardTransaction;
 
 import java.util.Objects;
 
-public final class ClassicCard extends Card{
+public final class ClassicCard extends Card {
 
     public ClassicCard(final String cardNumber) {
         super(cardNumber);
@@ -22,11 +23,13 @@ public final class ClassicCard extends Card{
                            final Converter currencyConverter) {
         int employeePosition = -1;
         int managerPosition = -1;
-        if(Objects.equals(account.getAccountType(), "business")) {
-            employeePosition = ((Bussines)account).isEmployee(user);
-            managerPosition = ((Bussines)account).isManager(user);
+        if (Objects.equals(account.getAccountType(), "business")
+                && !Objects.equals(((Bussines) account).getOwner().getEmail(), user.getEmail())) {
+            employeePosition = ((Bussines) account).isEmployee(user);
+            managerPosition = ((Bussines) account).isManager(user);
 
-            if(employeePosition != -1 && convertedAmount > ((Bussines)account).getSpendingLimit()) {
+            if (employeePosition != -1
+                    && convertedAmount > ((Bussines) account).getSpendingLimit()) {
                 return -1;
             }
         }
@@ -45,18 +48,28 @@ public final class ClassicCard extends Card{
         }
 
 
-        pay(user, convertedAmount, account, command, email, currency, currencyConverter);
-        if(employeePosition != -1) {
-            double amountToAdd = ((Bussines)account).getSpendingEmployees().get(employeePosition) + convertedAmount;
-            ((Bussines)account).setSpendingEmployee(employeePosition, amountToAdd);
-        } else if(managerPosition != -1) {
-            double amountToAdd = ((Bussines)account).getSpendingManagers().get(managerPosition) + convertedAmount;
-            ((Bussines)account).setSpendingManager(managerPosition, amountToAdd);
+        int turnedInGold = pay(user, convertedAmount, account, command,
+                email, currency, currencyConverter);
+        if (employeePosition != -1) {
+            double amountToAdd = ((Bussines) account).getSpendingEmployees().get(employeePosition)
+                    + convertedAmount;
+            ((Bussines) account).setSpendingEmployee(employeePosition, amountToAdd);
+        } else if (managerPosition != -1) {
+            double amountToAdd = ((Bussines) account).getSpendingManagers().get(managerPosition)
+                    + convertedAmount;
+            ((Bussines) account).setSpendingManager(managerPosition, amountToAdd);
         }
         account.addTransaction(new CardTransaction(command.getTimestamp(), "Card payment",
                 convertedAmount, command.getCommerciant(),
                 getCardNumber(), email, account.getIban()));
         command.setDescription("Success");
+        if (turnedInGold == 1) {
+            account.addTransaction(new AccountTransaction(command.getTimestamp(), "Upgrade plan",
+                    null, null, account.getIban(), null,
+                    null, "gold", null, -1));
+        }
+        System.out.println("S-a platit " + convertedAmount
+                + " si au ramas " + account.getBalance());
         return 0;
     }
 }

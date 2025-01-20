@@ -1,4 +1,4 @@
-package org.poo.bussines;
+package org.poo.business;
 
 import org.poo.fileio.ExchangeInput;
 

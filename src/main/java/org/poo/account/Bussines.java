@@ -2,15 +2,14 @@ package org.poo.account;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.poo.bussines.Commerciant;
-import org.poo.bussines.Converter;
-import org.poo.fileio.CommerciantInput;
+import org.poo.business.Commerciant;
+import org.poo.business.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public final class Bussines extends Account{
+public final class Bussines extends Account {
     private List<User> employees;
     private List<User> managers;
     private List<Double> spendingEmployees;
@@ -21,13 +20,15 @@ public final class Bussines extends Account{
     private double spendingLimit;
     private double depositLimit;
     private User owner;
+    private static final int INITIAL_LIMIT = 500;
+
     public Bussines(final String iban, final String currency,
                     final String accountType, final double minBalance,
                     final User user, final Converter converter) {
         super(iban, currency, accountType, minBalance);
         this.owner = user;
-        this.spendingLimit = converter.convert("RON", currency, 500);
-        this.depositLimit = converter.convert("RON", currency, 500);
+        this.spendingLimit = converter.convert("RON", currency, INITIAL_LIMIT);
+        this.depositLimit = converter.convert("RON", currency, INITIAL_LIMIT);
         this.managers = new ArrayList<>();
         this.employees = new ArrayList<>();
         this.spendingEmployees = new ArrayList<>();
@@ -41,43 +42,101 @@ public final class Bussines extends Account{
         return owner;
     }
 
-    public void addEmployee(User user){
+    /**
+     * Adds an employee to the business account.
+     *
+     * @param user The {@link User} to be added as an employee.
+     */
+    public void addEmployee(final User user) {
         employees.add(user);
     }
 
-    public void addManager(User user) {
+    /**
+     * Adds a manager to the business account.
+     *
+     * @param user The {@link User} to be added as a manager.
+     */
+    public void addManager(final User user) {
         managers.add(user);
     }
 
-    public void addSpendingEmployee(int position, double amount) {
+    /**
+     * Adds spending data for a specific employee at the given position.
+     *
+     * @param position The position of the employee in the list.
+     * @param amount   The amount of spending to record.
+     */
+    public void addSpendingEmployee(final int position, final double amount) {
         spendingEmployees.add(position, amount);
     }
 
-    public void addDepositEmployee(int position, double amount) {
+    /**
+     * Adds deposit data for a specific employee at the given position.
+     *
+     * @param position The position of the employee in the list.
+     * @param amount   The amount of deposit to record.
+     */
+    public void addDepositEmployee(final int position, final double amount) {
         depositEmployees.add(position, amount);
     }
 
-    public void addSpendingManager(int position, double amount) {
+    /**
+     * Adds spending data for a specific manager at the given position.
+     *
+     * @param position The position of the manager in the list.
+     * @param amount   The amount of spending to record.
+     */
+    public void addSpendingManager(final int position, final double amount) {
         spendingManagers.add(position, amount);
     }
 
-    public void addDepositManager(int position, double amount) {
+    /**
+     * Adds deposit data for a specific manager at the given position.
+     *
+     * @param position The position of the manager in the list.
+     * @param amount   The amount of deposit to record.
+     */
+    public void addDepositManager(final int position, final double amount) {
         depositManagers.add(position, amount);
     }
 
-    public void setSpendingEmployee(int position, double amount) {
+    /**
+     * Updates the spending amount for an employee at the given position.
+     *
+     * @param position The position of the employee in the list.
+     * @param amount   The new spending amount to set.
+     */
+    public void setSpendingEmployee(final int position, final double amount) {
         spendingEmployees.set(position, amount);
     }
 
-    public void setDepositEmployee(int position, double amount) {
+    /**
+     * Updates the deposit amount for an employee at the given position.
+     *
+     * @param position The position of the employee in the list.
+     * @param amount   The new deposit amount to set.
+     */
+    public void setDepositEmployee(final int position, final double amount) {
         depositEmployees.set(position, amount);
     }
 
-    public void setSpendingManager(int position, double amount) {
+    /**
+     * Updates the spending amount for a manager at the given position.
+     *
+     * @param position The position of the manager in the list.
+     * @param amount   The new spending amount to set.
+     */
+    public void setSpendingManager(final int position, final double amount) {
         spendingManagers.set(position, amount);
     }
 
-    public void setDepositManager(int position, double amount) {
+    /**
+     * Updates the deposit amount for a manager at the given position.
+     *
+     * @param position The position of the manager in the list.
+     * @param amount   The new deposit amount to set.
+     */
+    public void setDepositManager(final int position, final double amount) {
         depositManagers.set(position, amount);
     }
 
@@ -109,7 +168,12 @@ public final class Bussines extends Account{
         return spendingLimit;
     }
 
-    public void setSpendingLimit(double spendingLimit) {
+    /**
+     * Sets the spending limit for the business account.
+     *
+     * @param spendingLimit The new spending limit to set.
+     */
+    public void setSpendingLimit(final double spendingLimit) {
         this.spendingLimit = spendingLimit;
     }
 
@@ -117,12 +181,22 @@ public final class Bussines extends Account{
         return depositLimit;
     }
 
-    public void setDepositLimit(double depositLimit) {
+    /**
+     * Sets the deposit limit for the business account.
+     *
+     * @param depositLimit The new deposit limit to set.
+     */
+    public void setDepositLimit(final double depositLimit) {
         this.depositLimit = depositLimit;
     }
 
-    public void addCommerciant(Commerciant comerciant) {
-        commerciants.add(comerciant);
+    /**
+     * Adds a commerciant to the list of commerciants associated with the business account.
+     *
+     * @param commerciant The {@link Commerciant} to be added.
+     */
+    public void addCommerciant(final Commerciant commerciant) {
+        commerciants.add(commerciant);
     }
 
     public List<Commerciant> getCommerciants() {
@@ -130,14 +204,23 @@ public final class Bussines extends Account{
     }
 
     @Override
-    public ObjectNode spendingsReport(Account account, int firstTimestamp, int lastTimestamp, int timestamp, ObjectNode transactionsNode, ObjectMapper mapper) {
+    public ObjectNode spendingsReport(final Account account, final int firstTimestamp,
+                                      final int lastTimestamp, final int timestamp,
+                                      final ObjectNode transactionsNode,
+                                      final ObjectMapper mapper) {
         return null;
     }
 
-    public int isEmployee(User user) {
+    /**
+     * Checks if a user is an employee of the business account.
+     *
+     * @param user The {@link User} to check.
+     * @return The position of the employee in the list, or -1 if not found.
+     */
+    public int isEmployee(final User user) {
         int position = 0;
         for (User secondUser : employees) {
-            if(Objects.equals(user.getEmail(), secondUser.getEmail())) {
+            if (Objects.equals(user.getEmail(), secondUser.getEmail())) {
                 return position;
             }
             position++;
@@ -145,10 +228,16 @@ public final class Bussines extends Account{
         return -1;
     }
 
-    public int isManager(User user) {
+    /**
+     * Checks if a user is a manager of the business account.
+     *
+     * @param user The {@link User} to check.
+     * @return The position of the manager in the list, or -1 if not found.
+     */
+    public int isManager(final User user) {
         int position = 0;
         for (User secondUser : managers) {
-            if(Objects.equals(user.getEmail(), secondUser.getEmail())) {
+            if (Objects.equals(user.getEmail(), secondUser.getEmail())) {
                 return position;
             }
             position++;
@@ -156,9 +245,15 @@ public final class Bussines extends Account{
         return -1;
     }
 
-    public Commerciant findCommerciant(String name) {
+    /**
+     * Finds a commerciant by name in the list of commerciants.
+     *
+     * @param name The name of the commerciant to find.
+     * @return The {@link Commerciant} object if found, or {@code null} if not.
+     */
+    public Commerciant findCommerciant(final String name) {
         for (Commerciant commerciant : commerciants) {
-            if(Objects.equals(commerciant.getName(), name)) {
+            if (Objects.equals(commerciant.getName(), name)) {
                 return commerciant;
             }
         } return null;

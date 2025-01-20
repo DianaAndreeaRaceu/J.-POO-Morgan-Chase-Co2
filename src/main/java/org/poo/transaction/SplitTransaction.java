@@ -3,20 +3,17 @@ package org.poo.transaction;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.poo.account.Account;
-import org.poo.account.User;
-import org.poo.fileio.CommandInput;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class SplitTransaction extends Transaction{
+public final class SplitTransaction extends Transaction {
     private double amount;
     private String currency;
-    private ArrayList<String> involved = new ArrayList<>();
+    private ArrayList<String> involved;
     private String errorIban;
     private ArrayList<Boolean> responses;
-    private List<Double> amountForUsers = new ArrayList<>();
+    private List<Double> amountForUsers;
     private boolean isFullyAccepted;
     private String error;
 
@@ -60,10 +57,16 @@ public final class SplitTransaction extends Transaction{
         return amountForUsers;
     }
 
-    public void addResponse(boolean response) {
-        if(response) {
+    /**
+     * Adds a response to the transaction from a participant.
+     *
+     * @param response The response from the participant: {@code true} for acceptance,
+     *                 {@code false} for rejection.
+     */
+    public void addResponse(final boolean response) {
+        if (response) {
             responses.add(true);
-            if(responses.size() == involved.size()) {
+            if (responses.size() == involved.size()) {
                isFullyAccepted = true;
             }
         } else {
@@ -75,10 +78,10 @@ public final class SplitTransaction extends Transaction{
     public void showTransaction(final Transaction transaction,
                                 final ObjectNode transactionNode, final ObjectMapper mapper) {
 
-        if(amountForUsers != null) {
+        if (amountForUsers != null) {
             ArrayNode amountArray = mapper.createArrayNode();
-            for (Double amount : amountForUsers) {
-                amountArray.add(amount);
+            for (Double amountfinder : amountForUsers) {
+                amountArray.add(amountfinder);
             }
             transactionNode.set("amountForUsers", amountArray);
         } else {
@@ -93,7 +96,7 @@ public final class SplitTransaction extends Transaction{
                     + " has insufficient funds for a split payment.");
         }
 
-        if(error != null) {
+        if (error != null) {
             transactionNode.put("error", error);
         }
 
@@ -103,7 +106,7 @@ public final class SplitTransaction extends Transaction{
             accountsArray.add(involvedAccount);
         }
         transactionNode.set("involvedAccounts", accountsArray);
-        if(amountForUsers != null) {
+        if (amountForUsers != null) {
             transactionNode.put("splitPaymentType", "custom");
         } else {
             transactionNode.put("splitPaymentType", "equal");

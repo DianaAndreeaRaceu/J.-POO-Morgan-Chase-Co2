@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.poo.bussines.Bank;
+import org.poo.business.Bank;
 import org.poo.checker.Checker;
 import org.poo.checker.CheckerConstants;
 import org.poo.fileio.CommandInput;
@@ -107,7 +107,7 @@ public final class Main {
                 case "addAccount":
                     bank.getTransactions().addAccount(command.getEmail(), command.getCurrency(),
                             command.getAccountType(), command.getTimestamp(), inputData.getCommerciants(),
-                             command.getInterestRate());
+                            command.getInterestRate());
                     break;
 
                 case "deleteAccount":
@@ -237,9 +237,8 @@ public final class Main {
                     break;
 
                 case "changeDepositLimit":
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!se apeleaza din main");
                     bank.getTransactions().changeDepositLimit(command.getEmail(),
-                            command.getAccount(), command.getAmount());
+                            command.getAccount(), command.getAmount(),command);
                     break;
 
                 case "businessReport":
@@ -259,6 +258,7 @@ public final class Main {
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), output);
     }
+
 
     /**
      * Method used for extracting the test number from the file name.

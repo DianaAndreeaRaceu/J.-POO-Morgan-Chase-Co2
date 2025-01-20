@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.Objects;
 
-public final class AccountTransaction extends Transaction{
+public final class AccountTransaction extends Transaction {
     private String senderIban;
     private String receiverIban;
     private String transferType;
@@ -51,26 +51,27 @@ public final class AccountTransaction extends Transaction{
     public void showTransaction(
             final Transaction transaction, final ObjectNode transactionNode,
             final ObjectMapper mapper) {
-        if(planType == null) {
+        if (planType == null) {
             if (((AccountTransaction) transaction).getReceiverIban() != null
                     && ((AccountTransaction) transaction).getSenderIban() != null
                     && !Objects.equals(transferType, "withdrawal")) {
-                transactionNode.put("senderIBAN", ((AccountTransaction) transaction).getSenderIban());
+                transactionNode.put("senderIBAN",
+                        ((AccountTransaction) transaction).getSenderIban());
                 transactionNode.put("receiverIBAN",
                         ((AccountTransaction) transaction).getReceiverIban());
                 transactionNode.put("amount", amount);
                 transactionNode.put("transferType",
                         ((AccountTransaction) transaction).getTransferType());
             }
-            if(Objects.equals(transferType, "interestAdd")) {
+            if (Objects.equals(transferType, "interestAdd")) {
                 transactionNode.put("amount", amountDoubleType);
                 transactionNode.put("currency", currency);
-            } else if(Objects.equals(transferType, "withdrawal")) {
+            } else if (Objects.equals(transferType, "withdrawal")) {
                 transactionNode.put("amount", amountDoubleType);
                 transactionNode.put("classicAccountIBAN", receiverIban);
             }
             transactionNode.put("description", transaction.getDescription());
-            if(Objects.equals(transferType, "withdrawal")) {
+            if (Objects.equals(transferType, "withdrawal")) {
                 transactionNode.put("savingsAccountIBAN", senderIban);
             }
         } else {

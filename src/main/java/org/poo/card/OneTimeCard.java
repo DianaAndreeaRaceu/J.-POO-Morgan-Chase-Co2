@@ -3,14 +3,14 @@ package org.poo.card;
 import org.poo.account.Account;
 import org.poo.account.Bussines;
 import org.poo.account.User;
-import org.poo.bussines.Converter;
+import org.poo.business.Converter;
 import org.poo.fileio.CommandInput;
 import org.poo.transaction.CardTransaction;
 import org.poo.utils.Utils;
 
 import java.util.Objects;
 
-public final class OneTimeCard extends Card{
+public final class OneTimeCard extends Card {
     public OneTimeCard(final String cardNumber) {
         super(cardNumber);
     }
@@ -20,13 +20,16 @@ public final class OneTimeCard extends Card{
                           final String email, final double convertedAmount,
                           final String currency, final User user,
                           final Converter currencyConverter) {
+        System.out.println("Vede ca are de platit cu un card ONETIME");
         int employeePosition = -1;
         int managerPosition = -1;
-        if(Objects.equals(account.getAccountType(), "business")) {
-            employeePosition = ((Bussines)account).isEmployee(user);
-            managerPosition = ((Bussines)account).isManager(user);
+        if (Objects.equals(account.getAccountType(), "business")
+                && !Objects.equals(((Bussines) account).getOwner().getEmail(), user.getEmail())) {
+            employeePosition = ((Bussines) account).isEmployee(user);
+            managerPosition = ((Bussines) account).isManager(user);
 
-            if(employeePosition != -1 && convertedAmount > ((Bussines)account).getSpendingLimit()) {
+            if (employeePosition != -1
+                    && convertedAmount > ((Bussines) account).getSpendingLimit()) {
                 return -1;
             }
         }
@@ -37,6 +40,8 @@ public final class OneTimeCard extends Card{
             return -1;
         }
         if (convertedAmount > account.getBalance()) {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!NU ARE BANI DESTUI");
+            System.out.println("Soldul ramane " + account.getBalance());
             command.setDescription("Insufficient funds");
             account.addTransaction(new CardTransaction(
                     command.getTimestamp(), "Insufficient funds",
@@ -44,13 +49,16 @@ public final class OneTimeCard extends Card{
             return -1;
         }
 
+        System.out.println("INCEPE plata");
         pay(user, convertedAmount, account, command, email, currency, currencyConverter);
-        if(employeePosition != -1) {
-            double amountToAdd = ((Bussines)account).getSpendingEmployees().get(employeePosition) + convertedAmount;
-            ((Bussines)account).setSpendingEmployee(employeePosition, amountToAdd);
-        } else if(managerPosition != -1) {
-            double amountToAdd = ((Bussines)account).getSpendingManagers().get(managerPosition) + convertedAmount;
-            ((Bussines)account).setSpendingManager(managerPosition, amountToAdd);
+        if (employeePosition != -1) {
+            double amountToAdd = ((Bussines) account).getSpendingEmployees().get(employeePosition)
+                    + convertedAmount;
+            ((Bussines) account).setSpendingEmployee(employeePosition, amountToAdd);
+        } else if (managerPosition != -1) {
+            double amountToAdd = ((Bussines) account).getSpendingManagers().get(managerPosition)
+                    + convertedAmount;
+            ((Bussines) account).setSpendingManager(managerPosition, amountToAdd);
         }
 
         account.addTransaction(new CardTransaction(command.getTimestamp(), "Card payment",

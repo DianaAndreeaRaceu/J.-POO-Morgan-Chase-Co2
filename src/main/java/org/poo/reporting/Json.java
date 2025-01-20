@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.account.Account;
 import org.poo.account.User;
-import org.poo.bussines.Bank;
+import org.poo.business.Bank;
 import org.poo.card.Card;
 import org.poo.fileio.CommandInput;
 import org.poo.fileio.CommerciantInput;
@@ -207,12 +207,20 @@ public final class Json {
         }
     }
 
+    /**
+     * Generates a JSON response for a cash withdrawal operation.
+     *
+     * @param command The {@link CommandInput} object containing withdrawal details.
+     * @param bank The {@link Bank} object used to handle the transaction.
+     * @param mapper The {@link ObjectMapper} used to create JSON nodes.
+     * @param output The {@link ArrayNode} to which the result will be added.
+     */
     public void generatecashWithdrawalResponse(final CommandInput command,
                                                final Bank bank, final ObjectMapper mapper,
                                                final ArrayNode output) {
         bank.getTransactions().cashWithdrawal(command.getCardNumber(), command.getAmount(),
                 command.getEmail(), command.getLocation(), command);
-        if(command.getDescription() != null) {
+        if (command.getDescription() != null) {
             ObjectNode check = mapper.createObjectNode();
             check.put("command", "cashWithdrawal");
 
@@ -225,12 +233,24 @@ public final class Json {
         }
     }
 
+    /**
+     * Generates a JSON response for a "sendMoney" operation.
+     *
+     * @param command The {@link CommandInput} object containing transaction details.
+     * @param bank The {@link Bank} object used to handle the transaction.
+     * @param mapper The {@link ObjectMapper} used to create JSON nodes.
+     * @param output The {@link ArrayNode} to which the result will be added.
+     * @param commerciants The array of {@link CommerciantInput} objects involved
+     *                     in the transaction.
+     * @param email The email of the sender.
+     */
     public void generateSendMoneyResponse(final CommandInput command, final Bank bank,
                                           final ObjectMapper mapper, final ArrayNode output,
-                                          final CommerciantInput[] commerciants, final String email) {
+                                          final CommerciantInput[] commerciants,
+                                          final String email) {
         bank.getTransactions().sendMoney(command.getAccount(),
                 command.getAmount(), command.getReceiver(), command, commerciants, email);
-        if(Objects.equals(command.getDescription(), "User not found")) {
+        if (Objects.equals(command.getDescription(), "User not found")) {
             ObjectNode check = mapper.createObjectNode();
             check.put("command", "sendMoney");
 
@@ -243,12 +263,21 @@ public final class Json {
         }
     }
 
+    /**
+     * Generates a JSON response for a "changeSpendingLimit" operation.
+     *
+     * @param command The {@link CommandInput} object containing the spending limit details.
+     * @param bank The {@link Bank} object used to handle the operation.
+     * @param mapper The {@link ObjectMapper} used to create JSON nodes.
+     * @param output The {@link ArrayNode} to which the result will be added.
+     */
     public void generateChangeSpendingLimitResponse(final CommandInput command, final Bank bank,
                                           final ObjectMapper mapper, final ArrayNode output) {
         bank.getTransactions().changeSpendingLimit(command.getEmail(),
                 command.getAccount(), command.getAmount(), command);
-        if(Objects.equals(command.getDescription(),
-                "You must be owner in order to change spending limit.")) {
+        if (Objects.equals(command.getDescription(),
+                "You must be owner in order to change spending limit.")
+                || Objects.equals(command.getDescription(), "This is not a business account")) {
             ObjectNode check = mapper.createObjectNode();
             check.put("command", "changeSpendingLimit");
 
@@ -261,11 +290,48 @@ public final class Json {
         }
     }
 
+    /**
+     * Generates a JSON response for a "changeDepositLimit" operation.
+     *
+     * @param command The {@link CommandInput} object containing the deposit limit details.
+     * @param bank The {@link Bank} object used to handle the operation.
+     * @param mapper The {@link ObjectMapper} used to create JSON nodes.
+     * @param output The {@link ArrayNode} to which the result will be added.
+     */
+    public void generateChangeDepositLimitResponse(final CommandInput command, final Bank bank,
+                                                    final ObjectMapper mapper,
+                                                   final ArrayNode output) {
+        bank.getTransactions().changeDepositLimit(command.getEmail(),
+                command.getAccount(), command.getAmount(), command);
+        if (Objects.equals(command.getDescription(),
+                "You must be owner in order to change deposit limit.")
+                || Objects.equals(command.getDescription(), "This is not a business account")) {
+            ObjectNode check = mapper.createObjectNode();
+            check.put("command", "changeDepositLimit");
+
+            ObjectNode outputCheck = mapper.createObjectNode();
+            outputCheck.put("description", command.getDescription());
+            outputCheck.put("timestamp", command.getTimestamp());
+            check.put("output", outputCheck);
+            check.put("timestamp", command.getTimestamp());
+            output.add(check);
+        }
+    }
+
+    /**
+     * Generates a JSON response for an "upgradePlan" operation.
+     *
+     * @param command The {@link CommandInput} object containing plan upgrade details.
+     * @param bank The {@link Bank} object used to handle the operation.
+     * @param mapper The {@link ObjectMapper} used to create JSON nodes.
+     * @param output The {@link ArrayNode} to which the result will be added.
+     */
     public void generateUpgradePlanResponse(final CommandInput command, final Bank bank,
-                                                    final ObjectMapper mapper, final ArrayNode output) {
+                                                    final ObjectMapper mapper,
+                                            final ArrayNode output) {
         bank.getTransactions().upgradePlan(command.getNewPlanType(),
                 command.getAccount(), command.getTimestamp(), command);
-        if(Objects.equals(command.getDescription(),
+        if (Objects.equals(command.getDescription(),
                 "Account not found")) {
             ObjectNode check = mapper.createObjectNode();
             check.put("command", "upgradePlan");
@@ -279,10 +345,19 @@ public final class Json {
         }
     }
 
+    /**
+     * Generates a JSON response for a "rejectSplitPayment" operation.
+     *
+     * @param command The {@link CommandInput} object containing the split
+     *               payment rejection details.
+     * @param bank The {@link Bank} object used to handle the operation.
+     * @param mapper The {@link ObjectMapper} used to create JSON nodes.
+     * @param output The {@link ArrayNode} to which the result will be added.
+     */
     public void generateRejectSplitPaymentResponse(final CommandInput command, final Bank bank,
                                             final ObjectMapper mapper, final ArrayNode output) {
         bank.getTransactions().rejectSplitPayment(command.getEmail(), command);
-        if(Objects.equals(command.getDescription(),
+        if (Objects.equals(command.getDescription(),
                 "User not found")) {
             ObjectNode check = mapper.createObjectNode();
             check.put("command", "rejectSplitPayment");
@@ -296,10 +371,20 @@ public final class Json {
         }
     }
 
+    /**
+     * Generates a JSON response for an "acceptSplitPayment" operation.
+     *
+     * @param command The {@link CommandInput} object containing the split
+     *               payment acceptance details.
+     * @param bank The {@link Bank} object used to handle the operation.
+     * @param mapper The {@link ObjectMapper} used to create JSON nodes.
+     * @param output The {@link ArrayNode} to which the result will be added.
+     */
     public void generateAcceptSplitPaymentResponse(final CommandInput command, final Bank bank,
-                                                   final ObjectMapper mapper, final ArrayNode output) {
+                                                   final ObjectMapper mapper,
+                                                   final ArrayNode output) {
         bank.getTransactions().acceptSplitPayment(command.getEmail(), command);
-        if(Objects.equals(command.getDescription(),
+        if (Objects.equals(command.getDescription(),
                 "User not found")) {
             ObjectNode check = mapper.createObjectNode();
             check.put("command", "acceptSplitPayment");

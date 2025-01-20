@@ -1058,7 +1058,7 @@
     "email" : "Jeffrey_Gonzales@hotmail.us",
     "accounts" : [ {
       "IBAN" : "RO98POOB8412955460158769",
-      "balance" : 5995.955222222222,
+      "balance" : 5930.622222222222,
       "currency" : "USD",
       "type" : "classic",
       "cards" : [ {
@@ -1090,7 +1090,7 @@
     "email" : "Anne_Wagner@hotmail.fr",
     "accounts" : [ {
       "IBAN" : "RO69POOB6209498372540635",
-      "balance" : 3784.6523400000005,
+      "balance" : 3801.4523400000007,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -1188,7 +1188,7 @@
     "email" : "Chantal_Nicolas@yahoo.fr",
     "accounts" : [ {
       "IBAN" : "RO30POOB9523423715747796",
-      "balance" : 3708.821420000001,
+      "balance" : 3740.921420000001,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -1272,7 +1272,7 @@
     "email" : "Jeffrey_Gonzales@hotmail.us",
     "accounts" : [ {
       "IBAN" : "RO98POOB8412955460158769",
-      "balance" : 5902.133,
+      "balance" : 5846.182222222223,
       "currency" : "USD",
       "type" : "classic",
       "cards" : [ {
@@ -1304,7 +1304,7 @@
     "email" : "Anne_Wagner@hotmail.fr",
     "accounts" : [ {
       "IBAN" : "RO69POOB6209498372540635",
-      "balance" : 3784.6523400000005,
+      "balance" : 3801.4523400000007,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -1402,7 +1402,7 @@
     "email" : "Chantal_Nicolas@yahoo.fr",
     "accounts" : [ {
       "IBAN" : "RO30POOB9523423715747796",
-      "balance" : 3708.821420000001,
+      "balance" : 3740.921420000001,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -1486,7 +1486,7 @@
     "email" : "Jeffrey_Gonzales@hotmail.us",
     "accounts" : [ {
       "IBAN" : "RO98POOB8412955460158769",
-      "balance" : 5902.133,
+      "balance" : 5846.182222222223,
       "currency" : "USD",
       "type" : "classic",
       "cards" : [ {
@@ -1653,7 +1653,7 @@
     "email" : "Anne_Wagner@hotmail.fr",
     "accounts" : [ {
       "IBAN" : "RO69POOB6209498372540635",
-      "balance" : 3784.6523400000005,
+      "balance" : 3801.4523400000007,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -1751,7 +1751,7 @@
     "email" : "Chantal_Nicolas@yahoo.fr",
     "accounts" : [ {
       "IBAN" : "RO30POOB9523423715747796",
-      "balance" : 3708.821420000001,
+      "balance" : 3740.921420000001,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -1835,7 +1835,7 @@
     "email" : "Jeffrey_Gonzales@hotmail.us",
     "accounts" : [ {
       "IBAN" : "RO98POOB8412955460158769",
-      "balance" : 5902.133,
+      "balance" : 5846.182222222223,
       "currency" : "USD",
       "type" : "classic",
       "cards" : [ {
@@ -1867,7 +1867,7 @@
     "email" : "Anne_Wagner@hotmail.fr",
     "accounts" : [ {
       "IBAN" : "RO69POOB6209498372540635",
-      "balance" : 3784.6523400000005,
+      "balance" : 3801.4523400000007,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -1965,7 +1965,7 @@
     "email" : "Chantal_Nicolas@yahoo.fr",
     "accounts" : [ {
       "IBAN" : "RO30POOB9523423715747796",
-      "balance" : 3708.821420000001,
+      "balance" : 3740.921420000001,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -2049,7 +2049,7 @@
     "email" : "Jeffrey_Gonzales@hotmail.us",
     "accounts" : [ {
       "IBAN" : "RO98POOB8412955460158769",
-      "balance" : 6991.0252222222225,
+      "balance" : 7012.852222222223,
       "currency" : "USD",
       "type" : "classic",
       "cards" : [ {
@@ -2081,7 +2081,7 @@
     "email" : "Anne_Wagner@hotmail.fr",
     "accounts" : [ {
       "IBAN" : "RO69POOB6209498372540635",
-      "balance" : 3784.6523400000005,
+      "balance" : 3801.4523400000007,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -2179,7 +2179,7 @@
     "email" : "Chantal_Nicolas@yahoo.fr",
     "accounts" : [ {
       "IBAN" : "RO30POOB9523423715747796",
-      "balance" : 3708.821420000001,
+      "balance" : 3740.921420000001,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -2263,7 +2263,7 @@
     "email" : "Jeffrey_Gonzales@hotmail.us",
     "accounts" : [ {
       "IBAN" : "RO98POOB8412955460158769",
-      "balance" : 6991.0252222222225,
+      "balance" : 7012.852222222223,
       "currency" : "USD",
       "type" : "classic",
       "cards" : [ {
@@ -2390,6 +2390,11 @@
     "description" : "Card payment",
     "timestamp" : 509
   }, {
+    "accountIBAN" : "RO65POOB8944016386845896",
+    "description" : "Upgrade plan",
+    "newPlanType" : "gold",
+    "timestamp" : 509
+  }, {
     "amount" : 20.0,
     "commerciant" : "McDonalds",
     "description" : "Card payment",
@@ -2463,7 +2468,7 @@
     "email" : "Anne_Wagner@hotmail.fr",
     "accounts" : [ {
       "IBAN" : "RO69POOB6209498372540635",
-      "balance" : 3784.6523400000005,
+      "balance" : 3801.4523400000007,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -2491,7 +2496,7 @@
     "email" : "Jeannine_de_Evrard@yahoo.fr",
     "accounts" : [ {
       "IBAN" : "RO65POOB8944016386845896",
-      "balance" : 1356.2399999999998,
+      "balance" : 1356.28,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -2561,7 +2566,7 @@
     "email" : "Chantal_Nicolas@yahoo.fr",
     "accounts" : [ {
       "IBAN" : "RO30POOB9523423715747796",
-      "balance" : 3708.821420000001,
+      "balance" : 3740.921420000001,
       "currency" : "EUR",
       "type" : "classic",
       "cards" : [ {
@@ -2645,7 +2650,7 @@
     "email" : "Jeffrey_Gonzales@hotmail.us",
     "accounts" : [ {
       "IBAN" : "RO98POOB8412955460158769",
-      "balance" : 6991.0252222222225,
+      "balance" : 7012.852222222223,
       "currency" : "USD",
       "type" : "classic",
       "cards" : [ {

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public final class CardTransaction extends Transaction{
+public final class CardTransaction extends Transaction {
     private String cardNumber;
     private String cardHolder;
     private double amount;
@@ -44,7 +44,7 @@ public final class CardTransaction extends Transaction{
         if (((CardTransaction) transaction).getAmount() > 0) {
             transactionNode.put("amount",
                     ((CardTransaction) transaction).getAmount());
-            if(((CardTransaction) transaction).getAccount() != null) {
+            if (((CardTransaction) transaction).getAccount() != null) {
                 transactionNode.put("commerciant", transaction.getCommerciant());
             }
         } else if (((CardTransaction) transaction).getAmount() == 0) {

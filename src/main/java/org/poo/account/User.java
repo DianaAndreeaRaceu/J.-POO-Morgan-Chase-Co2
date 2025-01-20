@@ -20,13 +20,10 @@ public final class User {
     private ArrayList<Account> accounts;
     private String servicePlan;
     private double fee;
-    private int nrOfTransactions;
-    private boolean cashbackReceivedFive;
-    private boolean cashbackReceivedTwo;
-    private boolean isCashbackReceivedTen;
     private ArrayList<CommandInput> transactionRequest;
     private ArrayList<Card> bussinessCards;
     private ArrayList<Account> bussinessAccounts;
+    private static final int MIN_AGE = 21;
 
     public User(final String firstName, final String lastName,
                 final String email, final String birthDate, final String occupation) {
@@ -36,16 +33,12 @@ public final class User {
         this.accounts = new ArrayList<>();
         this.birthDate = birthDate;
         this.occupation = occupation;
-        if(Objects.equals(occupation, "student")) {
+        if (Objects.equals(occupation, "student")) {
             servicePlan = "student";
         } else {
             servicePlan = "standard";
         }
         fee = 0;
-        nrOfTransactions = 0;
-        cashbackReceivedTwo = false;
-        cashbackReceivedFive = false;
-        isCashbackReceivedTen = false;
         transactionRequest = new ArrayList<>();
         bussinessCards = new ArrayList<>();
         bussinessAccounts = new ArrayList<>();
@@ -91,7 +84,7 @@ public final class User {
         return servicePlan;
     }
 
-    public void setServicePlan(String servicePlan) {
+    public void setServicePlan(final String servicePlan) {
         this.servicePlan = servicePlan;
     }
 
@@ -99,41 +92,10 @@ public final class User {
         return fee;
     }
 
-    public void setFee(double fee) {
+    public void setFee(final double fee) {
         this.fee = fee;
     }
 
-    public int getNrOfTransactions() {
-        return nrOfTransactions;
-    }
-
-    public void setNrOfTransactions(int nrOfTransactions) {
-        this.nrOfTransactions = nrOfTransactions;
-    }
-
-    public boolean isCashbackReceivedFive() {
-        return cashbackReceivedFive;
-    }
-
-    public boolean isCashbackReceivedTwo() {
-        return cashbackReceivedTwo;
-    }
-
-    public boolean isCashbackReceivedTen() {
-        return isCashbackReceivedTen;
-    }
-
-    public void setCashbackReceivedFive(boolean cashbackReceivedFive) {
-        this.cashbackReceivedFive = cashbackReceivedFive;
-    }
-
-    public void setCashbackReceivedTen(boolean cashbackReceivedTen) {
-        isCashbackReceivedTen = cashbackReceivedTen;
-    }
-
-    public void setCashbackReceivedTwo(boolean cashbackReceivedTwo) {
-        this.cashbackReceivedTwo = cashbackReceivedTwo;
-    }
 
     public ArrayList<CommandInput> getTransactionRequest() {
         return transactionRequest;
@@ -143,7 +105,12 @@ public final class User {
         return bussinessCards;
     }
 
-    public void addBussinessCard(Card card) {
+    /**
+     * Adds a business card to the user's list of business cards.
+     *
+     * @param card The {@link Card} to be added as a business card.
+     */
+    public void addBussinessCard(final Card card) {
         this.bussinessCards.add(card);
     }
 
@@ -151,13 +118,25 @@ public final class User {
         return bussinessAccounts;
     }
 
-    public void addBussinesAccount(Account account) {
+    /**
+     * Adds a business account to the user's list of business accounts.
+     *
+     * @param account The {@link Account} to be added as a business account.
+     */
+    public void addBussinesAccount(final Account account) {
         this.bussinessAccounts.add(account);
     }
 
-    public boolean hasBussinessCard(String cardNumber) {
+    /**
+     * Checks if the user has a business card with the specified card number.
+     *
+     * @param cardNumber The card number to search for.
+     * @return {@code true} if the user has a business card with the given number;
+     *         {@code false} otherwise.
+     */
+    public boolean hasBussinessCard(final String cardNumber) {
         for (Card card : bussinessCards) {
-            if(Objects.equals(card.getCardNumber(), cardNumber)) {
+            if (Objects.equals(card.getCardNumber(), cardNumber)) {
                 return true;
             }
         }
@@ -215,10 +194,17 @@ public final class User {
         return null;
     }
 
-    public Account findTheClassicAccountForCurrency(String currency) {
+    /**
+     * Searches for a classic account in the user's list of accounts by currency.
+     *
+     * @param currency The currency of the account to search for.
+     * @return The {@link Account} with the specified currency and "classic" type,
+     *         or {@code null} if no matching account is found.
+     */
+    public Account findTheClassicAccountForCurrency(final String currency) {
         for (Account account : accounts) {
-            if(Objects.equals(account.getAccountType(), "classic")) {
-                if(Objects.equals(account.getCurrency(), currency)) {
+            if (Objects.equals(account.getAccountType(), "classic")) {
+                if (Objects.equals(account.getCurrency(), currency)) {
                     return account;
                 }
             }
@@ -226,6 +212,16 @@ public final class User {
         return null;
     }
 
+
+    /**
+     * Checks if the user is at least 21 years old based on their birthdate.
+     *
+     * <p>The method parses the user's birthdate and calculates the age in years.
+     * If the user is 21 or older, the method returns {@code true}; otherwise, {@code false}.
+     * If the birthdate is invalid or missing, the method also returns {@code false}.</p>
+     *
+     * @return {@code true} if the user is at least 21 years old; {@code false} otherwise.
+     */
     public boolean hasAtLeast21Years() {
         try {
             String birthDateString = getBirthDate();
@@ -236,26 +232,30 @@ public final class User {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-            LocalDate birthDate = LocalDate.parse(getBirthDate(), formatter);
+            LocalDate birthdate = LocalDate.parse(getBirthDate(), formatter);
 
             LocalDate currentDate = LocalDate.now();
 
-            Period age = Period.between(birthDate, currentDate);
+            Period age = Period.between(birthdate, currentDate);
 
-            if (age.getYears() >= 21) {
-                return true;
-            } else {
-                return false;
-            }
+            return age.getYears() >= MIN_AGE;
         } catch (DateTimeException e) {
             return false;
         }
     }
 
-    public void addCommandToAccept(CommandInput command) {
+    /**
+     * Adds a transaction command to the user's list of pending transaction requests.
+     *
+     * @param command The {@link CommandInput} object representing the transaction to be added.
+     */
+    public void addCommandToAccept(final CommandInput command) {
         transactionRequest.add(command);
     }
 
+    /**
+     * Removes the first transaction command from the user's list of pending transaction requests.
+     */
     public void removeCommand() {
         transactionRequest.removeFirst();
     }

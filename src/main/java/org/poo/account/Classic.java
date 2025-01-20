@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.fileio.CommerciantInput;
-import org.poo.transaction.AccountTransaction;
 import org.poo.transaction.Transaction;
 import org.poo.utils.Utils;
 
-public final class Classic extends Account{
+public final class Classic extends Account {
     public Classic(final String iban, final String currency,
                    final String accountType, final double minBalance,
                    final CommerciantInput[] commerciants) {

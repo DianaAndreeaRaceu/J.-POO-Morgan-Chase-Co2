@@ -640,6 +640,9 @@
     "cardHolder" : "Harrison_Iyengar@outlook.in",
     "description" : "New card created",
     "timestamp" : 220
+  }, {
+    "description" : "Insufficient funds",
+    "timestamp" : 289
   } ]
 }, {
   "command" : "printTransactions",
@@ -2671,7 +2674,7 @@
   "command" : "businessReport",
   "output" : {
     "IBAN" : "RO04POOB3492426980939341",
-    "balance" : 85.14497142857141,
+    "balance" : 1189.1449714285716,
     "currency" : "EUR",
     "spending limit" : 958.0,
     "deposit limit" : 100.0,
@@ -2681,12 +2684,12 @@
       "username" : "Sanders-Kramer Iris"
     } ],
     "employees" : [ {
-      "spent" : 854.9078285714286,
-      "deposited" : 70.0,
+      "spent" : 0.0,
+      "deposited" : 0.0,
       "username" : "Sanders-Kramer Iris"
     } ],
-    "total spent" : 854.9078285714286,
-    "total deposited" : 70.0,
+    "total spent" : 0.0,
+    "total deposited" : 0.0,
     "statistics type" : "transaction"
   },
   "timestamp" : 922
@@ -2694,7 +2697,7 @@
   "command" : "businessReport",
   "output" : {
     "IBAN" : "RO66POOB1088683052483887",
-    "balance" : 619.0,
+    "balance" : 1658.0,
     "currency" : "EUR",
     "spending limit" : 500.0,
     "deposit limit" : 100.0,
@@ -2705,11 +2708,11 @@
     } ],
     "employees" : [ {
       "spent" : 0.0,
-      "deposited" : 70.0,
+      "deposited" : 0.0,
       "username" : "Sanders-Kramer Iris"
     } ],
     "total spent" : 0.0,
-    "total deposited" : 70.0,
+    "total deposited" : 0.0,
     "statistics type" : "transaction"
   },
   "timestamp" : 923
@@ -2717,7 +2720,7 @@
   "command" : "businessReport",
   "output" : {
     "IBAN" : "RO19POOB5993192794373940",
-    "balance" : 540.0,
+    "balance" : 2292.0,
     "currency" : "EUR",
     "spending limit" : 838.0,
     "deposit limit" : 100.0,
@@ -2728,11 +2731,11 @@
     } ],
     "employees" : [ {
       "spent" : 0.0,
-      "deposited" : 335.0,
+      "deposited" : 0.0,
       "username" : "Sanders-Kramer Iris"
     } ],
     "total spent" : 0.0,
-    "total deposited" : 335.0,
+    "total deposited" : 0.0,
     "statistics type" : "transaction"
   },
   "timestamp" : 924
@@ -2740,7 +2743,7 @@
   "command" : "businessReport",
   "output" : {
     "IBAN" : "RO19POOB5993192794373940",
-    "balance" : 540.0,
+    "balance" : 2292.0,
     "currency" : "EUR",
     "spending limit" : 838.0,
     "statistics type" : "commerciant",
@@ -3299,7 +3302,7 @@
       } ]
     }, {
       "IBAN" : "RO04POOB3492426980939341",
-      "balance" : 85.14497142857141,
+      "balance" : 1189.1449714285716,
       "currency" : "EUR",
       "type" : "business",
       "cards" : [ {
@@ -3308,7 +3311,7 @@
       } ]
     }, {
       "IBAN" : "RO66POOB1088683052483887",
-      "balance" : 619.0,
+      "balance" : 1658.0,
       "currency" : "EUR",
       "type" : "business",
       "cards" : [ {
@@ -3317,7 +3320,7 @@
       } ]
     }, {
       "IBAN" : "RO19POOB5993192794373940",
-      "balance" : 540.0,
+      "balance" : 2292.0,
       "currency" : "EUR",
       "type" : "business",
       "cards" : [ {
@@ -3823,7 +3826,7 @@
       } ]
     }, {
       "IBAN" : "RO04POOB3492426980939341",
-      "balance" : 85.14497142857141,
+      "balance" : 1189.1449714285716,
       "currency" : "EUR",
       "type" : "business",
       "cards" : [ {
@@ -3832,7 +3835,7 @@
       } ]
     }, {
       "IBAN" : "RO66POOB1088683052483887",
-      "balance" : 619.0,
+      "balance" : 1658.0,
       "currency" : "EUR",
       "type" : "business",
       "cards" : [ {
@@ -3841,7 +3844,7 @@
       } ]
     }, {
       "IBAN" : "RO19POOB5993192794373940",
-      "balance" : 540.0,
+      "balance" : 2292.0,
       "currency" : "EUR",
       "type" : "business",
       "cards" : [ {

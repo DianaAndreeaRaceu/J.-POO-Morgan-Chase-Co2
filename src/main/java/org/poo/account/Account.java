@@ -2,12 +2,11 @@ package org.poo.account;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.poo.bussines.Converter;
+import org.poo.business.Commerciant;
+import org.poo.business.Converter;
 import org.poo.card.Card;
 import org.poo.fileio.CommandInput;
-import org.poo.fileio.CommerciantInput;
 import org.poo.transaction.AccountTransaction;
-import org.poo.transaction.CardTransaction;
 import org.poo.transaction.Transaction;
 
 import java.util.ArrayList;
@@ -20,9 +19,27 @@ public abstract class Account {
     private String accountType;
     private double balance;
     private double minBalance;
-    private ArrayList<Card> cards;
-    private ArrayList<Transaction> transactions;
+    private final ArrayList<Card> cards;
+    private final ArrayList<Transaction> transactions;
     private double spendingThreshold;
+
+    private final ArrayList<Integer> transactionsPerCommerciant;
+    private final ArrayList<Commerciant> commerciants;
+
+    private boolean cashbackReceivedFive;
+    private boolean cashbackReceivedTwo;
+    private boolean cashbackReceivedTen;
+
+    private static final int CASHBACK_TWO = 2;
+    private static final int CASHBACK_FIVE = 5;
+    private static final int CASHBACK_TEN = 10;
+    private static final int TOTAL_PERCENT = 100;
+    private static final int LIMIT_FOR_COMISSION = 500;
+    private static final int AMOUNT_FOR_GOLD = 300;
+    private static final double COMISSION_ONE = 0.1;
+    private static final double COMISSION_TWO = 0.2;
+    private static final int MIN_FEE = 5;
+
 
     public Account(final String iban, final String currency,
                    final String accountType, final double minBalance) {
@@ -34,6 +51,11 @@ public abstract class Account {
         this.cards = new ArrayList<>();
         this.transactions = new ArrayList<>();
         this.spendingThreshold = 0;
+        this.transactionsPerCommerciant = new ArrayList<>();
+        this.commerciants = new ArrayList<>();
+        cashbackReceivedTwo = false;
+        cashbackReceivedFive = false;
+        cashbackReceivedTen = false;
 
     }
 
@@ -89,12 +111,127 @@ public abstract class Account {
         return cards;
     }
 
-    public double getSpendingThreshold() {
+    public final double getSpendingThreshold() {
         return spendingThreshold;
     }
 
+    public final void setCashbackReceivedFive(final boolean cashbackReceivedFive) {
+        this.cashbackReceivedFive = cashbackReceivedFive;
+    }
 
-    public void addSpendingThreshold(double amount) {
+    public final void setCashbackReceivedTen(final boolean cashbackReceivedTen) {
+        this.cashbackReceivedTen = cashbackReceivedTen;
+    }
+
+    public final void setCashbackReceivedTwo(final boolean cashbackReceivedTwo) {
+        this.cashbackReceivedTwo = cashbackReceivedTwo;
+    }
+
+    /**
+     * Adds a new commerciant with a single transaction for tracking.
+     *
+     * @param commerciant The commerciant to add.
+     */
+    public final void addCommerciantNrOfTr(final Commerciant commerciant) {
+        commerciants.add(commerciant);
+        transactionsPerCommerciant.add(1);
+    }
+
+    /**
+     * Updates the transaction count for a specific commerciant by position.
+     *
+     * @param position The position of the commerciant in the list.
+     */
+    public final void setTransactionForCommerciant(final int position) {
+        transactionsPerCommerciant.set(position,
+                transactionsPerCommerciant.get(position) + 1);
+    }
+
+
+    /**
+     * Finds the position of a commerciant in the list based on its name.
+     *
+     * @param commerciant The name of the commerciant to search for.
+     * @return The position of the commerciant in the list, or -1 if not found.
+     */
+    public int findPositionForCommerciant(final String commerciant) {
+        int pos = 0;
+        for (Commerciant comm : commerciants) {
+            if (Objects.equals(comm.getName(), commerciant)) {
+                return pos;
+            }
+            pos++;
+        }
+        return -1;
+    }
+
+
+    /**
+     * Checks if a 2% cashback can be applied based on Food transactions.
+     *
+     * @return True if cashback can be applied, false otherwise.
+     */
+    public boolean canApplyTwoCashBack() {
+        int pos = 0;
+        for (Commerciant commerciant : commerciants) {
+            if (Objects.equals(commerciant.getType(), "Food")
+                    && transactionsPerCommerciant.get(pos) == CASHBACK_TWO
+                    && !cashbackReceivedTwo) {
+                return true;
+            }
+            pos++;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if a 5% cashback can be applied based on Clothes transactions.
+     *
+     * @return True if cashback can be applied, false otherwise.
+     */
+    public boolean canApplyFiveCashBack() {
+        int pos = 0;
+        for (Commerciant commerciant : commerciants) {
+            if (Objects.equals(commerciant.getType(), "Clothes")
+                    && transactionsPerCommerciant.get(pos) == CASHBACK_FIVE
+                    && !cashbackReceivedFive) {
+                return true;
+            }
+            pos++;
+        }
+        return false;
+    }
+
+
+    /**
+     * Checks if a 10% cashback can be applied based on Tech transactions.
+     *
+     * @return True if cashback can be applied, false otherwise.
+     */
+    public boolean canApplyTenCashBack() {
+        int pos = 0;
+        System.out.println("Comerciantii " + commerciants);
+        System.out.println("Tranzactii " + transactionsPerCommerciant);
+        for (Commerciant commerciant : commerciants) {
+            if (Objects.equals(commerciant.getType(), "Tech")) {
+                System.out.println("VEDE UN COMERCIANT TECH");
+                if (transactionsPerCommerciant.get(pos) == CASHBACK_TEN
+                        && !cashbackReceivedTen) {
+                    System.out.println("RETURNEAZA TRUE");
+                    return true;
+                }
+            }
+            pos++;
+        }
+        return false;
+    }
+
+    /**
+     * Increments the spending threshold of the account by a specified amount.
+     *
+     * @param amount The amount to add to the spending threshold.
+     */
+    public void addSpendingThreshold(final double amount) {
         this.spendingThreshold = spendingThreshold + amount;
     }
 
@@ -132,6 +269,11 @@ public abstract class Account {
         this.balance += amount;
     }
 
+    /**
+     * Deducts a specified amount from the account balance.
+     *
+     * @param amount The amount to be deducted from the account balance.
+     */
     public final void removeFunds(final double amount) {
         this.balance -= amount;
     }
@@ -180,11 +322,11 @@ public abstract class Account {
         int employeePosition = -1;
         int managerPosition = -1;
         User owner = user;
-        if(Objects.equals(getAccountType(), "business")) {
-            owner = ((Bussines)this).getOwner();
-            employeePosition = ((Bussines)this).isEmployee(user);
-            managerPosition = ((Bussines)this).isManager(user);
-            if(employeePosition != -1 && ((Bussines)this).getSpendingLimit() < amount) {
+        if (Objects.equals(getAccountType(), "business")) {
+            owner = ((Bussines) this).getOwner();
+            employeePosition = ((Bussines) this).isEmployee(user);
+            managerPosition = ((Bussines) this).isManager(user);
+            if (employeePosition != -1 && ((Bussines) this).getSpendingLimit() < amount) {
                 addTransaction(new AccountTransaction(
                         command.getTimestamp(), "LIMIT",
                         null, null, null, null,
@@ -192,55 +334,80 @@ public abstract class Account {
                 return -1;
             }
         }
-        if(Objects.equals(owner.getServicePlan(), "standard")) {
-            if(getBalance() - (amount + (amount * 0.2)/100) < 0) {
+        if (Objects.equals(owner.getServicePlan(), "standard")) {
+            if (getBalance() - (amount + (amount * COMISSION_TWO) / TOTAL_PERCENT) < 0) {
                 addTransaction(new AccountTransaction(
                         command.getTimestamp(), "Insufficient funds",
                         null, null, null, null,
                         null, null, null, -1));
                 return -1;
             }
-            setBalance(getBalance() - (amount + (amount * 0.2)/100));
-        } else if(Objects.equals(owner.getServicePlan(), "silver") && amountInRon >= 500) {
-            if(getBalance() - (amount + (amount * 0.1)/100) < 0) {
+            setBalance(getBalance() - (amount + (amount * COMISSION_TWO) / TOTAL_PERCENT));
+        } else if (Objects.equals(owner.getServicePlan(), "silver")
+                && amountInRon >= LIMIT_FOR_COMISSION) {
+            if (getBalance() - (amount + (amount * COMISSION_ONE) / TOTAL_PERCENT) < 0) {
                 addTransaction(new AccountTransaction(
                         command.getTimestamp(), "Insufficient funds",
                         null, null, null, null,
                         null, null, null, -1));
                 return -1;
             }
-            setBalance(getBalance() - (amount + (amount * 0.1)/100));
+            setBalance(getBalance() - (amount + (amount * COMISSION_ONE) / TOTAL_PERCENT));
             owner.setFee(owner.getFee() + 1);
-            if(owner.getFee() == 5) {
+            if (owner.getFee() == MIN_FEE && !Objects.equals(user.getServicePlan(), "gold")) {
                 owner.setServicePlan("gold");
+                System.out.println(owner.getEmail());
+                this.addTransaction(new AccountTransaction(command.getTimestamp(),
+                        "Upgrade plan",
+                        null, null, iban, null,
+                        null, "gold", null, -1));
             }
         } else {
             setBalance(getBalance() - amount);
-            if(amountInRon >= 300) {
+            if (amountInRon >= AMOUNT_FOR_GOLD) {
                 owner.setFee(owner.getFee() + 1);
-                if(owner.getFee() == 5) {
+                if (owner.getFee() == MIN_FEE && !Objects.equals(user.getServicePlan(), "gold")) {
                     owner.setServicePlan("gold");
+                    this.addTransaction(new AccountTransaction(command.getTimestamp(),
+                            "Upgrade plan",
+                            null, null, iban, null,
+                            null, "gold", null, -1));
                 }
             }
         }
-        if(employeePosition != -1) {
-            double amountToAdd = ((Bussines)this).getSpendingEmployees().get(employeePosition) + amount;
-            ((Bussines)this).setSpendingEmployee(employeePosition, amountToAdd);
-        } else if(managerPosition != -1) {
-            double amountToAdd = ((Bussines)this).getSpendingManagers().get(managerPosition) + amount;
-            ((Bussines)this).setSpendingManager(managerPosition, amountToAdd);
+        if (employeePosition != -1) {
+            double amountToAdd = ((Bussines) this).getSpendingEmployees().get(employeePosition)
+                    + amount;
+            ((Bussines) this).setSpendingEmployee(employeePosition, amountToAdd);
+        } else if (managerPosition != -1) {
+            double amountToAdd = ((Bussines) this).getSpendingManagers().get(managerPosition)
+                    + amount;
+            ((Bussines) this).setSpendingManager(managerPosition, amountToAdd);
         }
-        if(account != null) {
+        if (account != null) {
             account.setBalance(account.getBalance() + convertedAmount);
         }
         return 0;
     }
 
-
+    /**
+     * Withdraws funds from the account and transfers them to another account.
+     *
+     * <p>The method checks if the current account has sufficient balance. If yes, the specified
+     * amount is deducted from the current account, and the converted amount is added to the
+     * target account.</p>
+     *
+     * @param amount         The amount to be withdrawn from this account.
+     * @param convertedAmount The equivalent amount to be added to the target account
+     *                        in its currency.
+     * @param account        The target account where the funds will be transferred.
+     * @param command        The command input object containing transaction details.
+     * @return 0 if the transaction is successful, -1 if there are insufficient funds.
+     */
     public final int withdrawSavings(final double amount, final double convertedAmount,
                                final Account account, final CommandInput command) {
 
-        if(getBalance() - amount < 0) {
+        if (getBalance() - amount < 0) {
             addTransaction(new AccountTransaction(
                     command.getTimestamp(), "Insufficient funds",
                     null, null, null, null,

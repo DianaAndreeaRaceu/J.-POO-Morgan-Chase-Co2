@@ -139,12 +139,7 @@ public final class CommandInput {
         return currency;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 }
